@@ -7,17 +7,28 @@ Tiene dos backends con semántica muy distinta. Leer antes de citar.
 
 ## Uso
 
-```powershell
-zig build-exe src\main.zig -O ReleaseFast
-Move-Item main.exe malfuck.exe
+```bash
+# Compilar el binario nativo
+zig build-exe src/main.zig -O ReleaseFast -femit-bin=malfuck
 
-# Classic extensional (por defecto)
-malfuck.exe examples\five.bf five.mal
-malfuck.exe examples\echo.bf echo_classic.mal examples\echo.in
+# Classic extensional (por defecto, potenciado por Autobolge 2.0 Conveyor O(N))
+./malfuck examples/five.bf five.mal
+./malfuck examples/echo.bf echo_classic.mal examples/echo.in
+./malfuck examples/hello.bf hello_classic.mal
 
-# Semántico (Malbolge Free)
-malfuck.exe examples\hello.bf hello_sem.mal --semantic
-malfuck.exe examples\echo.bf echo_sem.mal examples\echo.in --semantic
+# Semántico (Malbolge Free, preserva cinta y loops en runtime)
+./malfuck examples/hello.bf hello_sem.mal --semantic
+./malfuck examples/echo.bf echo_sem.mal examples/echo.in --semantic
+```
+
+## Pruebas Automatizadas
+
+```bash
+# Pruebas del pipeline semántico (4/4 PASS)
+zig test src/semantic.zig -O ReleaseSafe
+
+# Pruebas del sintetizador constructivo Conveyor (6/6 PASS)
+zig test src/conveyor.zig
 ```
 
 ## Backend `--semantic` (el verdadero)

@@ -1,0 +1,8 @@
+zig-cache/
+zig-out/
+*.o
+*.obj
+*.exe
+malfuck
+*.mal
+!examples/*.mal

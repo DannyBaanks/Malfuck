@@ -17,6 +17,7 @@
 const std = @import("std");
 const bf = @import("bf_interpreter.zig");
 const generator = @import("generator.zig");
+const conveyor = @import("conveyor.zig");
 const engine = @import("engine.zig");
 const ir = @import("ir.zig");
 const ir_vm = @import("ir_vm.zig");
@@ -68,8 +69,14 @@ pub fn main(init: std.process.Init) !void {
     const expected = ir_result.output;
     std.debug.print("brainfuck_output_bytes={d}\n", .{expected.len});
 
-    generator.verbose = false;
-    const program = try generator.generar(expected, 14, alloc);
+    const program = if (conveyor.canFit(expected)) blk: {
+        std.debug.print("generator=autobolge-2.0-conveyor (O(N))\n", .{});
+        break :blk try conveyor.synthesize(expected, alloc);
+    } else blk: {
+        std.debug.print("generator=legacy-beam-search\n", .{});
+        generator.verbose = false;
+        break :blk try generator.generar(expected, 14, alloc);
+    };
     try std.Io.Dir.cwd().writeFile(init.io, .{ .sub_path = output_path, .data = program });
 
     var memory: [engine.MEM_SIZE]u16 = undefined;
