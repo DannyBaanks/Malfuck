@@ -1,7 +1,13 @@
-# Malfuck
+# Malfuck v2.0 — Semantic Brainfuck-to-Free Compiler & Autobolge 2.0 Conveyor Synthesis
+
+[![Version](https://img.shields.io/badge/version-2.0-blue.svg)](https://github.com/DannyBaanks/Malfuck)
+[![Zig](https://img.shields.io/badge/Zig-0.16%2B-orange.svg)](https://ziglang.org)
+[![Tests](https://img.shields.io/badge/tests-10%2F10%20PASS-brightgreen.svg)]()
 
 Compilador **Brainfuck → Malbolge** en Zig 0.16, autocontenido. Miembro
-puente de la familia `-bolge`: toma Brainfuck y produce programas Malbolge.
+puente de la familia `-bolge`: toma Brainfuck y produce programas Malbolge reales.
+
+Parte de la **Suite de Aplicaciones y Compiladores v2.0** del ecosistema Malbolge de ISyCo.
 
 Tiene dos backends con semántica muy distinta. Leer antes de citar.
 
